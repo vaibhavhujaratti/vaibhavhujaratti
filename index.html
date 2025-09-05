@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Ordering Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .item {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .item h3 {
+      margin: 0;
+    }
+    .item p {
+      color: #777;
+    }
+    .item button {
+      background: #ff6600;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .item button:hover {
+      background: #e55b00;
+    }
+    #cart {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    #cart h2 {
+      margin: 0 0 10px;
+    }
+    #cart ul {
+      list-style: none;
+      padding: 0;
+    }
+    #cart li {
+      margin: 5px 0;
+    }
+    #total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    #orderBtn {
+      margin-top: 15px;
+      background: green;
+      padding: 10px 15px;
+      border-radius: 6px;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #orderBtn:hover {
+      background: darkgreen;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍔 Online Food Ordering</h1>
+
+  <div class="menu">
+    <div class="item">
+      <h3>Burger</h3>
+      <p>₹120</p>
+      <button onclick="addToCart('Burger', 120)">Add</button>
+    </div>
+    <div class="item">
+      <h3>Pizza</h3>
+      <p>₹250</p>
+      <button onclick="addToCart('Pizza', 250)">Add</button>
+    </div>
+    <div class="item">
+      <h3>Pasta</h3>
+      <p>₹150</p>
+      <button onclick="addToCart('Pasta', 150)">Add</button>
+    </div>
+    <div class="item">
+      <h3>Cold Drink</h3>
+      <p>₹50</p>
+      <button onclick="addToCart('Cold Drink', 50)">Add</button>
+    </div>
+  </div>
+
+  <div id="cart">
+    <h2>🛒 Your Cart</h2>
+    <ul id="cartList"></ul>
+    <p id="total">Total: ₹0</p>
+    <button id="orderBtn" onclick="placeOrder()">Place Order</button>
+  </div>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      total += price;
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById("cartList");
+      cartList.innerHTML = "";
+      cart.forEach((c, index) => {
+        let li = document.createElement("li");
+        li.textContent = `${c.item} - ₹${c.price}`;
+        cartList.appendChild(li);
+      });
+      document.getElementById("total").textContent = "Total: ₹" + total;
+    }
+
+    function placeOrder() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      alert("✅ Order placed successfully! Total: ₹" + total);
+      cart = [];
+      total = 0;
+      updateCart();
+    }
+  </script>
+</body>
+</html>
